@@ -24,11 +24,11 @@ void iter_pre_order(treenode* T);
 void iter_post_order(treenode* T);
 
 int depth_max(treenode* node,int deep);
-int location(treenode* node, int data, int deep);
+int location(treenode* node, char data, int deep);
 void treeleaves(treenode* root,counts& c);
 
 int main(void)
-{
+{  
 	int x=0;
 	treenode* root = NULL;
 	deque<treenode**> q;
@@ -56,8 +56,13 @@ int main(void)
 				break;
 			}
 			case 3:{
-				int n;scanf("%d",&n);
-				printf("该结点所在层次：%d\n",location(root,n,0));
+				fflush(stdin);
+				char n;scanf("%c",&n);
+				int res = location(root,n,1);
+				if(res!=-1)
+					printf("该结点所在层次：%d\n",res);
+				else 
+					printf("该结点不存在\n");
 				break;
 			}
 			case 4:{
@@ -70,7 +75,7 @@ int main(void)
 				cin>>a;
 				if(a=='a') iter_pre_order(root);
 				else if(a=='b') pre_order(root);
-					else printf("输错了");
+					else printf("输错了\n");
 				
 				printf("\n");
 				break;
@@ -86,7 +91,7 @@ int main(void)
 				cin>>a;
 				if(a=='a') iter_post_order(root);
 				else if(a=='b')	post_order(root); 
-					else printf("输错了");
+					else printf("输错了\n");
 		
 				printf("\n");
 				break;
@@ -166,17 +171,20 @@ int depth_max(treenode* node,int deep)
 	int num2 = depth_max(node->rchild,deep+1);
 	return num1>num2?num1:num2;
 }
-int location(treenode* node, int data, int deep)
+int location(treenode* node, char data, int deep)
 {
 	if(node == NULL)
-		return deep;
+		return -1;
 	
 	if(node->data == data)
 		return deep; 
 	
 	int num1 = location(node->lchild, data, deep + 1);
 	int num2 = location(node->rchild, data, deep + 1);
-	return num1>num2?num1:num2;
+
+	if(num1 == -1&&num2 ==-1) return -1; 
+	if(num1!=-1) return num1;
+	if(num2!=-1) return num2;
 }
 
 void in_order(treenode* rode)

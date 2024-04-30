@@ -21,7 +21,7 @@ double calculate();
 char cmp(char c1,char c2); 
 
 double calculate()
-{
+{   //12+5*(4-2)/2@            
 	cstack* cstack1 = (cstack*)malloc(sizeof(cstack));
 	dstack* dstack1 = (dstack*)malloc(sizeof(dstack));
 	char *str = (char*)malloc(sizeof(char)*15);
@@ -32,7 +32,7 @@ double calculate()
 		exit(66);
 	}
 
-	Pushc_stack(cstack1,'@');
+	Pushc_stack(cstack1,'@');    //peihe
 	
 	int i = 0;
 	int len = strlen(str);
@@ -43,9 +43,11 @@ double calculate()
 			int val = str[i]-'0';
 			int k=10;
 		    while(str[temp]>='0'&&str[temp]<='9'){
-				val+=k*(str[temp++]-'0');
+				val=k*val+(str[temp++]-'0');
 				k*=10;
 			}
+			if(val>9)  i=temp-1;  
+
 			Pushd_stack(dstack1,val);
 		}
 	    else if(str[i]=='@'){
@@ -111,10 +113,10 @@ char getc_Top(cstack* cstack1) //c1栈内 c2栈外
 {
    return cstack1->data[cstack1->top-1];
 }
-char cmp(char in,char out) //1先入站 0后入站 
-{    //(*/+-)#
+char cmp(char in,char out)  //out 栈外 in 栈内 
+{    //(*/+-)@
 	
-	if(out=='#')
+	if(out=='@')
 		return '>';
 	
 	if(in=='+'||in=='-'){
