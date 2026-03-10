@@ -1,3 +1,7 @@
+//0.注意下标开始是0还是1
+//1.写好初始状态，next和l和r。
+//2.进行最长相等前后缀的判断：若相等，lr同时偏移
+//3.若不等，l回溯
 #include<stdio.h>
 #include<string.h>
 void get_next(char T[],int next[]) //下标从1开始
@@ -118,3 +122,4 @@ l    r
 ababcd
 011231
 */
+
